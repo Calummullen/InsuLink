@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "diabetes-app",
-    "slug": "diabetes-app",
+    "name": "InsuLink",
+    "slug": "InsuLink",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -15,16 +15,38 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.calummullen.InsuLink"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.calummullen.InsuLink"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/hussar/HussarPrintA-M9nY.otf"
+          ]
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "187ea514-5ee2-4243-a4e3-bebfcf92ff23"
+      }
     }
+  },
+  "android": {
+    "package": "com.yourcompany.yourappname",
+    "versionCode": 1
   }
 }
