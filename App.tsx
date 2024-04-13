@@ -30,6 +30,7 @@ import { Checklist } from "./views/Checklist";
 const Stack = createNativeStackNavigator();
 
 // const AuthContext = React.createContext({});
+// Test
 
 export default function App() {
   const [sensorData, setSensorData] = useState();
