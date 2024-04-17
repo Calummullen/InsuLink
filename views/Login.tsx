@@ -1,11 +1,32 @@
-import React from "react";
-import { Text, View, TextInput, Pressable, SafeAreaView } from "react-native";
+import React, { useState } from "react";
+import {
+  Text,
+  View,
+  Pressable,
+  SafeAreaView,
+  Modal,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { AuthContext } from "../context/auth-context";
+import { TextInput } from "react-native-paper";
+import { useFonts } from "expo-font";
+import { Entypo } from "@expo/vector-icons";
 
 export const Login = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const { signIn } = React.useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const {
+    authContext: { signIn },
+    errorText,
+    isLoginLoading,
+    setErrorText,
+  } = React.useContext(AuthContext);
+  const [fontsLoaded] = useFonts({
+    hussar: require("../assets/fonts/hussar/HussarPrintA-M9nY.otf"),
+  });
+
   return (
     <SafeAreaView
       style={{
@@ -16,38 +37,101 @@ export const Login = () => {
         justifyContent: "center",
       }}
     >
-      <View style={{ flexDirection: "column", gap: 4, width: "90%" }}>
-        <Text>Email</Text>
-        <TextInput
+      {/* <Modal animationType="slide" transparent={true} visible={true}>
+        <ActivityIndicator
+          style={{ position: "absolute", top: 300, left: 150, zIndex: 10 }}
+          size={"large"}
+        />
+      </Modal> */}
+
+      <View
+        style={{
+          flexDirection: "column",
+          alignItems: "center",
+          marginBottom: 32,
+          width: "100%",
+        }}
+      >
+        <Text
           style={{
-            paddingHorizontal: 10,
-            height: 50,
-            borderWidth: 1,
-            borderColor: "grey",
-            borderRadius: 5,
+            fontSize: 64,
+            fontFamily: "hussar",
+            width: "100%",
+            textAlign: "center",
           }}
+        >
+          Insu<Text style={{ color: "blue" }}>Link</Text>
+        </Text>
+        <Text
+          style={{
+            fontFamily: "hussar",
+            //
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
+          Your Libre companion app
+        </Text>
+      </View>
+      <View style={{ flexDirection: "column", gap: 4, width: "90%" }}>
+        <TextInput
+          onChangeText={(email) => {
+            if (errorText) setErrorText("");
+            setEmail(email);
+          }}
+          mode="outlined"
+          label="Email"
+          activeOutlineColor="blue"
+          outlineStyle={{ borderRadius: 12 }}
           value={email}
-          onChangeText={setEmail}
           keyboardType="email-address"
         />
       </View>
-      <View style={{ flexDirection: "column", gap: 4, width: "90%" }}>
-        <Text>Password</Text>
+      <View
+        style={{ flexDirection: "row", width: "90%", alignItems: "center" }}
+      >
         <TextInput
-          style={{
-            paddingHorizontal: 10,
-            height: 50,
-            borderWidth: 1,
-            borderColor: "grey",
-            borderRadius: 5,
+          onChangeText={(password) => {
+            if (errorText) setErrorText("");
+            setPassword(password);
           }}
+          mode="outlined"
+          label="Password"
+          style={{ flex: 1 }}
+          activeOutlineColor="blue"
+          outlineStyle={{ borderRadius: 12 }}
           value={password}
-          onChangeText={setPassword}
-          secureTextEntry
+          secureTextEntry={!showPassword}
         />
+        {!showPassword ? (
+          <Entypo
+            name="eye"
+            size={24}
+            color="black"
+            style={{ position: "absolute", right: 15, top: 17.5 }}
+            onPress={() => setShowPassword(!showPassword)}
+          />
+        ) : (
+          <Entypo
+            name="eye-with-line"
+            size={24}
+            color="black"
+            style={{ position: "absolute", right: 15, top: 17.5 }}
+            onPress={() => setShowPassword(!showPassword)}
+          />
+        )}
       </View>
+      {errorText && (
+        <View>
+          <Text style={{ fontSize: 14, color: "red", fontFamily: "hussar" }}>
+            {errorText}
+          </Text>
+        </View>
+      )}
 
+      {/* <TouchableOpacity style={{ width: "90%" }}> */}
       <Pressable
+        disabled={(!email && !password) || isLoginLoading}
         style={{
           alignItems: "center",
           justifyContent: "center",
@@ -55,22 +139,34 @@ export const Login = () => {
           width: "90%",
           paddingVertical: 12,
           paddingHorizontal: 32,
-          borderRadius: 4,
-          backgroundColor: "black",
+          borderRadius: 12,
+          backgroundColor:
+            email === "" && password === ""
+              ? "lightgrey"
+              : isLoginLoading
+              ? "#A3D3A3"
+              : "#27D227",
         }}
         onPress={() => signIn({ email, password })}
       >
-        <Text
-          style={{
-            fontSize: 16,
-            lineHeight: 21,
-            fontWeight: "bold",
-            letterSpacing: 0.25,
-            color: "white",
-          }}
-        >
-          Login
-        </Text>
+        {isLoginLoading ? (
+          <ActivityIndicator color="blue" />
+        ) : (
+          <Text
+            style={{
+              fontSize: 18,
+              color: "white",
+              fontFamily: "hussar",
+              lineHeight: 25,
+              width: "100%",
+              height: "auto",
+              textAlign: "center",
+            }}
+          >
+            Login
+          </Text>
+        )}
+        {/* </Pressable> */}
       </Pressable>
     </SafeAreaView>
   );

@@ -21,10 +21,9 @@ export const libreLogin = async (email: string, password: string) => {
       }
     );
     const authData = await response.json();
-    console.log("sdf", authData);
     return authData.data.authTicket;
   } catch (e) {
-    console.log("errorr", e);
+    console.log("Error in libreLogin", e);
   }
 };
 
@@ -75,7 +74,6 @@ export const getPatientGraphData = async (patientId: string) => {
       }
     );
     const graphData = await response.json();
-    //   console.log("my data 1", graphData.data.graphData.length);
     return graphData;
   } catch (e) {
     console.log("Error in getPatientGraphData", e);

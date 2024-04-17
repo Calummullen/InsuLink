@@ -1,15 +1,15 @@
 import { View, Text } from "react-native";
 import { Dimensions } from "react-native";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { useFonts } from "expo-font";
 import { LineChart } from "react-native-gifted-charts";
 
-export const Dashboard = ({ dataTest }) => {
+export const Dashboard: FC<any> = ({ graphData }) => {
   const [fontsLoaded] = useFonts({
     hussar: require("../assets/fonts/hussar/HussarPrintA-M9nY.otf"),
   });
 
-  const data = dataTest.map((d, index) => {
+  const data = graphData.map((d: any, index: number) => {
     if (index % 10 === 0) {
       return {
         value: d.Value,
@@ -25,34 +25,11 @@ export const Dashboard = ({ dataTest }) => {
   const screenWidth = Dimensions.get("window").width;
 
   const [currentValue, setCurrentValue] = useState({
-    value: dataTest[dataTest.length - 1].Value,
-    time: dataTest[dataTest.length - 1].Timestamp.time,
-    index: dataTest.length - 1,
+    value: graphData[graphData.length - 1].Value,
+    time: graphData[graphData.length - 1].Timestamp.time,
+    index: graphData.length - 1,
   });
 
-  const [currentIndex, setCurrentIndex] = useState<number>(dataTest.length - 1);
-  // const screenWidth = Dimensions.get("window").width;
-  // const chartConfig = {
-  //   backgroundGradientFrom: "white",
-  //   backgroundGradientTo: "white",
-  //   color: (opacity = 1) => `black`,
-  //   // strokeWidth: 2, // optional, default 3
-  //   // barPercentage: 0.5,
-  // };
-  // const data = {
-  //   labels: dataTest.map((d) => d.Timestamp.time),
-  //   // labels: ["12", "15", "18", "21"],
-  //   datasets: [
-  //     {
-  //       // data: dataTest.map((d) => {
-  //       //   return { value: d.Value, timeStamp: d.Timestamp };
-  //       // }),
-  //       data: dataTest.map((d) => d.Value),
-  //       // data: [1, 2, 3, 4],
-  //       strokeWidth: 3, // optional
-  //     },
-  //   ],
-  // };
   return (
     <View style={{ marginTop: 20 }}>
       {data && (
@@ -87,22 +64,21 @@ export const Dashboard = ({ dataTest }) => {
               pointerStripUptoDataPoint: false,
               pointerVanishDelay: 999999999999,
               initialPointerIndex: currentValue.index,
-              pointerLabelComponent: (data) => {
-                console.log(data);
-                const index = dataTest.findIndex(
-                  (d) => d.Timestamp.time === data[0].dataPointText
+              pointerLabelComponent: (data: any) => {
+                const index = graphData.findIndex(
+                  (d: any) => d.Timestamp.time === data[0].dataPointText
                 );
                 if (index !== currentValue.index) {
                   try {
                     setCurrentValue({
                       value: data[0].value,
-                      time: dataTest.find(
-                        (d) => d.Timestamp.time == data[0].dataPointText
+                      time: graphData.find(
+                        (d: any) => d.Timestamp.time == data[0].dataPointText
                       ).Timestamp.time,
                       index,
                     });
                   } catch (e) {
-                    console.log("ERROR123", e);
+                    console.log("Error setting current value", e);
                   }
                 }
               },

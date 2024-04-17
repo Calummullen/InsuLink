@@ -15,6 +15,7 @@ import {
 } from "react-native-ui-lib";
 import { TextInput } from "react-native-paper";
 import { useFonts } from "expo-font";
+import { TestNotification } from "../notifications/notifications";
 
 export const Reminders = () => {
   const [fontsLoaded] = useFonts({
@@ -27,6 +28,7 @@ export const Reminders = () => {
       isChecked: false,
     },
   ];
+
   const [listItems, setListItems] = useState(initialReminderItems);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [activeModal, setActiveModal] = useState<string>("");
@@ -195,7 +197,24 @@ export const Reminders = () => {
               borderRadius: 8,
             }}
             backgroundColor={"#5FA8FF"}
-            onPress={() => {}}
+            onPress={async () => {
+              // if (time) {
+              //   await TestNotification({ date: time });
+              // }
+
+              // if (duration) {
+              //   await TestNotification({ hours: duration });
+              // }
+
+              setIsModalOpen(false);
+              if (duration) {
+                await TestNotification({ hours: duration });
+              }
+
+              if (time) {
+                await TestNotification({ date: time });
+              }
+            }}
           >
             <Text style={{ color: "white", fontSize: 18 }}>
               Set reminder{" "}
