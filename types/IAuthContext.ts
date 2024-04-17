@@ -2,7 +2,7 @@ export interface IAuthContext {
   state: {
     isSignout: boolean;
     userToken: string;
-    graphData: unknown;
+    graphData: any;
   };
   isDashboardLoading: boolean;
   isLoginLoading: boolean;

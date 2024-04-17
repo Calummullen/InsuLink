@@ -1,64 +1,31 @@
-import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
-import {
-  Button,
-  FlatList,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from "react-native";
-import * as SecureStore from "expo-secure-store";
-import {
-  getPatientData,
-  getPatientGraphData,
-  libreLogin,
-} from "../services/diabetes-service";
-import { format, parse } from "date-fns";
-import { ConvertLibreDateToFormattedDate } from "../utils/date-helper";
-import { TestNotification } from "../notifications/notifications";
-import { useDeviceOrientation } from "@react-native-community/hooks";
+import { useContext, useEffect } from "react";
+import { FlatList, Text, View } from "react-native";
+import { AuthContext, getGraphData } from "../context/auth-context";
 
 export const Logbook = () => {
-  const [sensorData, setSensorData] = useState();
+  const {
+    state: { graphData },
+  } = useContext(AuthContext);
 
   useEffect(() => {
-    const getPatientId = async () => {
-      const patientDataResponse = await getPatientData();
-      // Handle Error
-
-      const patientGraphDataResponse = await getPatientGraphData(
-        patientDataResponse.data[0].patientId
-      );
-      const graphData = patientGraphDataResponse.data.graphData;
-
-      graphData.map((item) => {
-        const convertedDate = ConvertLibreDateToFormattedDate(item.Timestamp);
-        item.Timestamp = convertedDate;
-        if (!item.Value.toString().includes(".")) {
-          item.Value = item.Value.toLocaleString("en", {
-            minimumFractionDigits: 1,
-          });
-        }
-      });
-      setSensorData(patientGraphDataResponse.data);
+    const awaitGraphData = async () => {
+      console.log("getting g data");
+      await getGraphData();
     };
 
-    getPatientId();
+    awaitGraphData();
   }, []);
 
   return (
     <View>
-      {sensorData && (
+      {graphData && (
         <View
           style={{
             width: "100%",
           }}
         >
           <FlatList
-            data={sensorData.graphData}
+            data={graphData}
             renderItem={({ item }) => (
               <View
                 style={{

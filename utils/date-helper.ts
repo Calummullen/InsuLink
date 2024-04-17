@@ -10,7 +10,7 @@ export const ConvertLibreDateToFormattedDate = (libreDate: string) => {
   const [splitTime, modifier] = formattedDate[1].split(" ");
   let [hours, minutes] = splitTime.split(":");
 
-  if (modifier === "PM") {
+  if (modifier === "PM" && hours !== "12") {
     hours = (parseInt(hours, 10) + 12).toString();
   }
 

@@ -10,7 +10,7 @@ import {
 import { ConvertLibreDateToFormattedDate } from "../utils/date-helper";
 import { IAuthContext } from "../types/IAuthContext";
 
-const getGraphData = async () => {
+export const getGraphData = async () => {
   try {
     const patientDataResponse = await getPatientData();
     // Handle Error

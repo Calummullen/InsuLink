@@ -31,7 +31,13 @@ export const Dashboard: FC<any> = ({ graphData }) => {
   });
 
   return (
-    <View style={{ marginTop: 20 }}>
+    <View
+      style={{
+        marginTop: 20,
+        height: "100%",
+        flexDirection: "column",
+      }}
+    >
       {data && (
         <>
           <LineChart
@@ -116,11 +122,18 @@ export const Dashboard: FC<any> = ({ graphData }) => {
         <View
           style={{
             height: 125,
-            flexDirection: "column",
-            backgroundColor: "lightgreen",
+            // flexDirection: "column",
+            marginBottom: 20,
+            backgroundColor: `${
+              currentValue.value < 4
+                ? "#FF8B8B"
+                : currentValue.value >= 4 && currentValue.value < 10
+                ? "#BCFCB4"
+                : "#FFCC8B"
+            }`,
             alignItems: "center",
             justifyContent: "center",
-            marginTop: 14,
+            marginTop: "auto",
           }}
         >
           <Text
@@ -142,48 +155,6 @@ export const Dashboard: FC<any> = ({ graphData }) => {
           </Text>
         </View>
       )}
-
-      {/* <LineChart
-        data={data}
-        width={screenWidth}
-        height={250}
-        chartConfig={chartConfig}
-        withInnerLines={false}
-        withHorizontalLines={true}
-        onDataPointClick={(data) => {
-          console.log("data1", data);
-          setCurrentValue(data.value);
-        }}
-      />
-      {currentValue && (
-        <View
-          style={{
-            height: 125,
-            flexDirection: "column",
-            backgroundColor: "lightgreen",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text
-            style={{ fontSize: 42, fontWeight: "normal", fontFamily: "hussar" }}
-          >
-            {currentValue}{" "}
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: "normal",
-                fontFamily: "hussar",
-              }}
-            >
-              mmol/L
-            </Text>
-          </Text>
-          <Text style={{ fontSize: 24, fontFamily: "hussar" }}>
-            {dataTest.find((d) => d.Value === currentValue).Timestamp.time}
-          </Text>
-        </View>
-      )} */}
     </View>
   );
 };
