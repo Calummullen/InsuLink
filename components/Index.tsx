@@ -4,21 +4,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Logbook } from "../views/Logbook";
 import { Header } from "../components/Header";
 import { Login } from "../views/Login";
-import * as SecureStore from "expo-secure-store";
-import { useContext, useEffect, useState } from "react";
-import { Pressable, Text, View } from "react-native";
-// import { AuthContext } from "./context/auth-context";
-import {
-  getPatientData,
-  getPatientGraphData,
-  libreLogin,
-} from "../services/diabetes-service";
-import {
-  DrawerContentScrollView,
-  DrawerItem,
-  DrawerItemList,
-  createDrawerNavigator,
-} from "@react-navigation/drawer";
+import { useContext } from "react";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Dashboard } from "../views/Dashboard";
 import { useFonts } from "expo-font";
 import {
@@ -28,11 +15,11 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import { Reminders } from "../views/Reminders";
-import { ConvertLibreDateToFormattedDate } from "../utils/date-helper";
 import { Checklist } from "../views/Checklist";
 import { LoaderScreen } from "react-native-ui-lib";
 import { Loading } from "../components/Loading";
-import { AuthContext, AuthContextProvider } from "../context/auth-context";
+import { AuthContext } from "../context/auth-context";
+import { IAuthContext } from "../types/IAuthContext";
 
 const Stack = createNativeStackNavigator();
 

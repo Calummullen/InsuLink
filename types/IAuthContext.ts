@@ -1,4 +1,4 @@
-interface IAuthContext {
+export interface IAuthContext {
   state: {
     isSignout: boolean;
     userToken: string;

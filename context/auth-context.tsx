@@ -7,8 +7,8 @@ import {
   getPatientGraphData,
   libreLogin,
 } from "../services/diabetes-service";
-import { LoaderScreen } from "react-native-ui-lib";
 import { ConvertLibreDateToFormattedDate } from "../utils/date-helper";
+import { IAuthContext } from "../types/IAuthContext";
 
 const getGraphData = async () => {
   try {
