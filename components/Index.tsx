@@ -19,7 +19,7 @@ import { Checklist } from "../views/Checklist";
 import { LoaderScreen } from "react-native-ui-lib";
 import { Loading } from "../components/Loading";
 import { AuthContext } from "../context/auth-context";
-import { IAuthContext } from "../types/IAuthContext";
+import { IAuthContext } from "../types/interfaces/IAuthContext";
 
 const Stack = createNativeStackNavigator();
 

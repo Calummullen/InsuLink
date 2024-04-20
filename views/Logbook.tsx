@@ -1,8 +1,14 @@
 import { useContext, useEffect } from "react";
 import { FlatList, Text, View } from "react-native";
 import { AuthContext, getGraphData } from "../context/auth-context";
+import { useFonts } from "expo-font";
+import { getReadingStyles } from "../utils/reading-style-helper";
 
 export const Logbook = () => {
+  const [fontsLoaded] = useFonts({
+    hussar: require("../assets/fonts/hussar/HussarPrintA-M9nY.otf"),
+  });
+
   const {
     state: { graphData },
   } = useContext(AuthContext);
@@ -29,13 +35,7 @@ export const Logbook = () => {
             renderItem={({ item }) => (
               <View
                 style={{
-                  backgroundColor: `${
-                    item.Value < 4
-                      ? "#FF8B8B"
-                      : item.Value >= 4 && item.Value < 10
-                      ? "#BCFCB4"
-                      : "#FFCC8B"
-                  }`,
+                  backgroundColor: getReadingStyles(item.Value).background,
                   borderBottomColor: "grey",
                   borderBottomWidth: 1,
                   alignItems: "center",
@@ -47,7 +47,8 @@ export const Logbook = () => {
               >
                 <Text
                   style={{
-                    fontSize: 52,
+                    fontSize: 38,
+                    fontFamily: "hussar",
                   }}
                 >
                   {item.Value}
@@ -59,10 +60,12 @@ export const Logbook = () => {
                     alignItems: "flex-end",
                   }}
                 >
-                  <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                  <Text style={{ fontSize: 16, fontFamily: "hussar" }}>
                     {item.Timestamp.time}
                   </Text>
-                  <Text style={{ fontSize: 18 }}>{item.Timestamp.date}</Text>
+                  <Text style={{ fontSize: 12, fontFamily: "hussar" }}>
+                    {item.Timestamp.date}
+                  </Text>
                 </View>
               </View>
             )}

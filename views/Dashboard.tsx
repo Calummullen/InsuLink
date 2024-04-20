@@ -3,6 +3,11 @@ import { Dimensions } from "react-native";
 import { FC, useState } from "react";
 import { useFonts } from "expo-font";
 import { LineChart } from "react-native-gifted-charts";
+import {
+  ReadingBackgroundColour,
+  ReadingBorderColour,
+} from "../types/enums/ReadingBackgroundColorEnum";
+import { getReadingStyles } from "../utils/reading-style-helper";
 
 export const Dashboard: FC<any> = ({ graphData }) => {
   const [fontsLoaded] = useFonts({
@@ -28,6 +33,7 @@ export const Dashboard: FC<any> = ({ graphData }) => {
     value: graphData[graphData.length - 1].Value,
     time: graphData[graphData.length - 1].Timestamp.time,
     index: graphData.length - 1,
+    readingStyle: getReadingStyles(graphData[graphData.length - 1].Value),
   });
 
   return (
@@ -82,6 +88,7 @@ export const Dashboard: FC<any> = ({ graphData }) => {
                         (d: any) => d.Timestamp.time == data[0].dataPointText
                       ).Timestamp.time,
                       index,
+                      readingStyle: getReadingStyles(data[0].value),
                     });
                   } catch (e) {
                     console.log("Error setting current value", e);
@@ -123,14 +130,15 @@ export const Dashboard: FC<any> = ({ graphData }) => {
           style={{
             height: 125,
             // flexDirection: "column",
-            marginBottom: 20,
-            backgroundColor: `${
-              currentValue.value < 4
-                ? "#FF8B8B"
-                : currentValue.value >= 4 && currentValue.value < 10
-                ? "#BCFCB4"
-                : "#FFCC8B"
-            }`,
+            shadowColor: "#000",
+
+            elevation: 4,
+            borderRadius: 18,
+            marginHorizontal: 10,
+            marginBottom: 40,
+            borderColor: currentValue.readingStyle.border,
+            borderWidth: 2,
+            backgroundColor: currentValue.readingStyle.background,
             alignItems: "center",
             justifyContent: "center",
             marginTop: "auto",

@@ -8,7 +8,7 @@ import {
   libreLogin,
 } from "../services/diabetes-service";
 import { ConvertLibreDateToFormattedDate } from "../utils/date-helper";
-import { IAuthContext } from "../types/IAuthContext";
+import { IAuthContext } from "../types/interfaces/IAuthContext";
 
 export const getGraphData = async () => {
   try {

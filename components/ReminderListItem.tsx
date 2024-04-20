@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -16,58 +16,47 @@ import {
 import { TextInput } from "react-native-paper";
 import { useFonts } from "expo-font";
 import { TestNotification } from "../notifications/notifications";
-import { ReminderListItem } from "../components/ReminderListItem";
-import { ScrollableList } from "../components/ScrollableList";
 
-export const Reminders = () => {
-  const [fontsLoaded] = useFonts({
-    hussar: require("../assets/fonts/hussar/HussarPrintA-M9nY.otf"),
-  });
-
-  const initialReminderItems = [
-    {
-      label: "Long-acting Insulin",
-      isChecked: false,
-    },
-  ];
-
-  const [listItems, setListItems] = useState(initialReminderItems);
-  const [isNewItemModalOpen, setIsNewItemModalOpen] = useState<boolean>(false);
+export const ReminderListItem: FC<{
+  item: any;
+  listItems: any[];
+  setListItems: (items: any[]) => void;
+}> = ({ item, listItems, setListItems }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [activeModal, setActiveModal] = useState<string>("");
   const [time, setTime] = useState<Date>();
   const [duration, setDuration] = useState<number>();
-
   return (
     <View
+      key={item.label}
       style={{
-        height: "100%",
-        margin: 12,
-        flexDirection: "column",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginHorizontal: 8,
+        paddingVertical: 18,
+        borderBottomWidth: 2,
 
-        gap: 24,
+        borderColor: "lightgrey",
       }}
     >
-      <Text style={{ fontFamily: "hussar", fontSize: 18 }}>
-        Configure notifications to keep track of important times of the day,
-        such as when to take your long-acting insulin
-      </Text>
-      <ScrollableList
-        listItemType={"reminder"}
-        listItems={listItems}
-        setListItems={setListItems}
+      <Text style={{ fontFamily: "hussar" }}>{item.label}</Text>
+      <Switch
+        value={item.isChecked}
+        onValueChange={() => {
+          const newList = [...listItems];
+          const objectToUpdate = newList.find((i) => i.label === item.label);
+          objectToUpdate!.isChecked = !objectToUpdate?.isChecked;
+          setListItems(newList);
+          if (item.isChecked) {
+            setDuration(undefined);
+            setTime(undefined);
+            setIsModalOpen(true);
+            setActiveModal(item.label);
+          }
+        }}
       />
-      {/* <View>
-        {listItems.map((item, index) => (
-          <ReminderListItem
-            key={index}
-            item={item}
-            listItems={listItems}
-            setListItems={setListItems}
-          />
-        ))}
-      </View> */}
-      {/* <Dialog
+
+      <Dialog
         visible={isModalOpen}
         panDirection={"down"}
         onDismiss={() => {
@@ -182,21 +171,22 @@ export const Reminders = () => {
             }}
             backgroundColor={"#5FA8FF"}
             onPress={async () => {
-              // if (time) {
-              //   await TestNotification({ date: time });
-              // }
-
-              // if (duration) {
-              //   await TestNotification({ hours: duration });
-              // }
-
               setIsModalOpen(false);
+              console.log("POG123");
               if (duration) {
-                await TestNotification({ hours: duration });
+                await TestNotification({
+                  title: item.label,
+                  body: item.label,
+                  hours: duration,
+                });
               }
 
               if (time) {
-                await TestNotification({ date: time });
+                await TestNotification({
+                  title: item.label,
+                  body: item.label,
+                  date: time,
+                });
               }
             }}
           >
@@ -211,7 +201,7 @@ export const Reminders = () => {
             </Text>
           </Button>
         </View>
-      </Dialog> */}
+      </Dialog>
     </View>
   );
 };

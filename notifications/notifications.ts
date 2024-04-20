@@ -1,9 +1,13 @@
 import * as Notifications from "expo-notifications";
 
 export const TestNotification = async ({
+  title,
+  body,
   date,
   hours,
 }: {
+  title: string;
+  body: string;
   date?: Date | undefined;
   hours?: number | undefined;
 }) => {
@@ -16,13 +20,14 @@ export const TestNotification = async ({
   });
 
   // Second, call the method
+  console.log("date", date, "hours", hours);
   const trigger = date ? { date: date } : { seconds: hours! };
-  const triggerTest = new Date(date!);
+  const triggerTest = date ? new Date(date!) : { seconds: hours! };
 
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: "Look at that notification",
-      body: "I'm so proud of myself!",
+      title,
+      body,
     },
     trigger: triggerTest,
   });
