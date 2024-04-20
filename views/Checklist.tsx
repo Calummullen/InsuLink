@@ -1,15 +1,6 @@
-import { useState } from "react";
-import { ScrollView, Text, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import {
-  Button,
-  Checkbox,
-  Dialog,
-  GridList,
-  TextField,
-} from "react-native-ui-lib";
-import { TextInput } from "react-native-paper";
 import { useFonts } from "expo-font";
+import { useState } from "react";
+import { View } from "react-native";
 import { ProgressBar } from "../components/ProgressBar";
 import { ScrollableList } from "../components/ScrollableList";
 

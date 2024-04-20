@@ -1,22 +1,6 @@
-import { useState } from "react";
-import { ScrollView, Text, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import {
-  Button,
-  Checkbox,
-  DateTimePicker,
-  Dialog,
-  GridList,
-  Picker,
-  PickerValue,
-  ProgressBar,
-  Switch,
-  TextField,
-} from "react-native-ui-lib";
-import { TextInput } from "react-native-paper";
 import { useFonts } from "expo-font";
-import { TestNotification } from "../notifications/notifications";
-import { ReminderListItem } from "../components/ReminderListItem";
+import { useState } from "react";
+import { Text, View } from "react-native";
 import { ScrollableList } from "../components/ScrollableList";
 
 export const Reminders = () => {

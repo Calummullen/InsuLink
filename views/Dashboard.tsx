@@ -1,12 +1,7 @@
-import { View, Text } from "react-native";
-import { Dimensions } from "react-native";
-import { FC, useState } from "react";
 import { useFonts } from "expo-font";
+import { FC, useState } from "react";
+import { Dimensions, Text, View } from "react-native";
 import { LineChart } from "react-native-gifted-charts";
-import {
-  ReadingBackgroundColour,
-  ReadingBorderColour,
-} from "../types/enums/ReadingBackgroundColorEnum";
 import { getReadingStyles } from "../utils/reading-style-helper";
 
 export const Dashboard: FC<any> = ({ graphData }) => {

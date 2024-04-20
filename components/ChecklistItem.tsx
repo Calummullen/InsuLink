@@ -1,14 +1,6 @@
-import { FC } from "react";
-import { View } from "react-native-ui-lib";
-import {
-  Button,
-  Checkbox,
-  Dialog,
-  GridList,
-  ProgressBar,
-  TextField,
-} from "react-native-ui-lib";
 import { Ionicons } from "@expo/vector-icons";
+import { FC } from "react";
+import { Checkbox, View } from "react-native-ui-lib";
 
 export const ChecklistItem: FC<{
   item: any;

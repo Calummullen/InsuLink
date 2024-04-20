@@ -1,14 +1,14 @@
-import { createContext, useState } from "react";
-import * as React from "react";
 import * as SecureStore from "expo-secure-store";
-import { LoginType } from "../types/LoginType";
+import * as React from "react";
+import { createContext, useState } from "react";
 import {
   getPatientData,
   getPatientGraphData,
   libreLogin,
 } from "../services/diabetes-service";
-import { ConvertLibreDateToFormattedDate } from "../utils/date-helper";
+import { LoginType } from "../types/LoginType";
 import { IAuthContext } from "../types/interfaces/IAuthContext";
+import { ConvertLibreDateToFormattedDate } from "../utils/date-helper";
 
 export const getGraphData = async () => {
   try {

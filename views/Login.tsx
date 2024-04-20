@@ -1,17 +1,15 @@
+import { Entypo } from "@expo/vector-icons";
+import { useFonts } from "expo-font";
 import React, { useState } from "react";
 import {
-  Text,
-  View,
+  ActivityIndicator,
   Pressable,
   SafeAreaView,
-  Modal,
-  TouchableOpacity,
-  ActivityIndicator,
+  Text,
+  View,
 } from "react-native";
-import { AuthContext } from "../context/auth-context";
 import { TextInput } from "react-native-paper";
-import { useFonts } from "expo-font";
-import { Entypo } from "@expo/vector-icons";
+import { AuthContext } from "../context/auth-context";
 
 export const Login = () => {
   const [email, setEmail] = React.useState("");

@@ -1,13 +1,9 @@
 import { useFonts } from "expo-font";
 import { FC } from "react";
-import { View, Text } from "react-native-ui-lib";
 import {
-  Button,
-  Checkbox,
-  Dialog,
-  GridList,
   ProgressBar as ProgressBarUiLib,
-  TextField,
+  Text,
+  View,
 } from "react-native-ui-lib";
 
 export const ProgressBar: FC<{

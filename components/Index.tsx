@@ -1,25 +1,25 @@
-import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Logbook } from "../views/Logbook";
-import { Header } from "../components/Header";
-import { Login } from "../views/Login";
-import { useContext } from "react";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { Dashboard } from "../views/Dashboard";
-import { useFonts } from "expo-font";
 import {
+  AntDesign,
   Entypo,
   FontAwesome5,
-  AntDesign,
   MaterialIcons,
 } from "@expo/vector-icons";
-import { Reminders } from "../views/Reminders";
-import { Checklist } from "../views/Checklist";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useFonts } from "expo-font";
+import * as React from "react";
+import { useContext } from "react";
 import { LoaderScreen } from "react-native-ui-lib";
+import { Header } from "../components/Header";
 import { Loading } from "../components/Loading";
 import { AuthContext } from "../context/auth-context";
 import { IAuthContext } from "../types/interfaces/IAuthContext";
+import { Checklist } from "../views/Checklist";
+import { Dashboard } from "../views/Dashboard";
+import { Logbook } from "../views/Logbook";
+import { Login } from "../views/Login";
+import { Reminders } from "../views/Reminders";
 
 const Stack = createNativeStackNavigator();
 
