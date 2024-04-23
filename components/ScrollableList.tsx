@@ -1,10 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
-import { FC, useState } from "react";
+import { FC, useCallback, useRef, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { TextInput } from "react-native-paper";
-import { Button, Dialog } from "react-native-ui-lib";
-import { ChecklistItem } from "./ChecklistItem";
+import { Button, Dialog, Drawer, SortableList } from "react-native-ui-lib";
 import { ReminderListItem } from "./ReminderListItem";
+import ChecklistItem from "./ChecklistItem";
+import SortableListView from "react-native-sortable-listview";
 
 export const ScrollableList: FC<{
   listItemType: "checklist" | "reminder";
@@ -13,6 +14,12 @@ export const ScrollableList: FC<{
 }> = ({ listItems, setListItems, listItemType }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [newChecklistItemText, setNewCheckListItemText] = useState<string>("");
+  const [pogItems, setPogItems] = useState(listItems);
+  const test = useRef<any[]>(pogItems);
+  const onOrderChange = useCallback((newData: any) => {
+    console.log("New order:", newData);
+    test.current = newData;
+  }, []);
 
   return (
     <View
@@ -21,6 +28,37 @@ export const ScrollableList: FC<{
         flex: 1,
       }}
     >
+      {/* <Drawer
+        rightItems={[
+          {
+            text: "Read",
+            background: "red",
+            onPress: () => console.log("read pressed"),
+          },
+        ]}
+        style={{ borderRadius: 14 }}
+      >
+        <View
+          style={{
+            height: 60,
+            alignItems: "center",
+            backgroundColor: "green",
+            borderRadius: 14,
+          }}
+        >
+          <Text style={{ fontSize: 48 }}>Item</Text>
+        </View>
+      </Drawer> */}
+
+      <SortableList
+        data={pogItems}
+        onOrderChange={() => console.log("hwere")}
+        renderItem={(data) => (
+          <View>
+            <Text style={{ padding: 30 }}>{data.item.label}</Text>
+          </View>
+        )}
+      />
       <ScrollView>
         {listItems.map((item, index) => {
           return listItemType === "checklist" ? (

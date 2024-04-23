@@ -26,6 +26,7 @@
     "react-native-chart-kit": "^6.12.0",
     "react-native-gesture-handler": "~2.14.0",
     "react-native-gifted-charts": "^1.4.9",
+    "react-native-haptic-feedback": "^2.2.0",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-paper": "^5.12.3",
     "react-native-reanimated": "~3.6.2",
@@ -34,8 +35,7 @@
     "react-native-svg": "^14.1.0",
     "react-native-ui-lib": "^7.19.0",
     "react-native-vector-icons": "^10.0.3",
-    "react-native-web": "^0.19.10",
-    "undefined": "react-native-community/datetimepicker"
+    "react-native-web": "^0.19.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
